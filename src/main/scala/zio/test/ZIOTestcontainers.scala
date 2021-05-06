@@ -8,7 +8,7 @@ object ZIOTestcontainers {
 
   def toManaged[T <: Startable](startable: T): RManaged[Blocking, T] =
     ZManaged.make(effectBlocking(startable.start()).as(startable))(container =>
-      effectBlocking(container.stop()).orDie,
+      effectBlocking(container.stop()).orDie
     )
 
   def toLayer[T <: Startable: Tag](container: T): RLayer[Blocking, Has[T]] =

@@ -8,8 +8,8 @@ lazy val zioTestcontainers = project
     name := "zio-testcontainers",
     libraryDependencies ++= List(
       Dependencies.zio,
-      Dependencies.testcontainers,
-    ),
+      Dependencies.testcontainers
+    )
   )
 
 lazy val commonSettings: List[Def.Setting[_]] = DecentScala.decentScalaSettings ++ List(
@@ -21,18 +21,18 @@ lazy val commonSettings: List[Def.Setting[_]] = DecentScala.decentScalaSettings 
       "sideeffffect",
       "Ondra Pelech",
       "ondra.pelech@gmail.com",
-      url("https://github.com/sideeffffect"),
-    ),
+      url("https://github.com/sideeffffect")
+    )
   ),
   crossScalaVersions := List(
     DecentScala.decentScalaVersion213,
     DecentScala.decentScalaVersion212,
-    DecentScala.decentScalaVersion211,
+    DecentScala.decentScalaVersion211
   ),
   testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
   missinglinkExcludedDependencies ++= List(
   ),
-  mimaReportBinaryIssues := {},
+  mimaReportBinaryIssues := {}
 )
 
 addCommandAlias("ci", "; check; +publishLocal")

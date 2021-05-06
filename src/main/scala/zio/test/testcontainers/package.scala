@@ -19,7 +19,7 @@ package object testcontainers {
   }
 
   implicit final class SingleContainerOps[T <: JavaGenericContainer[_]](
-      private val container: SingleContainer[T],
+      private val container: SingleContainer[T]
   ) extends AnyVal {
 
     def getHostAndPort(port: Int): Task[(String, Int)] = for {
