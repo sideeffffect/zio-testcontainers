@@ -31,6 +31,8 @@ lazy val commonSettings: List[Def.Setting[_]] = DecentScala.decentScalaSettings 
   ),
   testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
   missinglinkExcludedDependencies ++= List(
+    moduleFilter(organization = "org.slf4j", name = "slf4j-api"),
+    moduleFilter(organization = "org.testcontainers", name = "testcontainers")
   ),
   mimaReportBinaryIssues := {}
 )

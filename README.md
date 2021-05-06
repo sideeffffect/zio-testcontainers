@@ -4,6 +4,8 @@
 | --- | --- |
 | [![Build Status][Badge-GitHubActions]][Link-GitHubActions] | [![Release Artifacts][Badge-SonatypeReleases]][Link-SonatypeReleases] |
 
+ZIO wrapper for [Testcontainers](https://github.com/testcontainers/testcontainers-scala).
+
 
 ```scala
 "com.github.sideeffffect" % "zio-testcontainers" % "<version>"
