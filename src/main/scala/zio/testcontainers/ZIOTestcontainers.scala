@@ -1,4 +1,4 @@
-package zio.test.testcontainers
+package zio.testcontainers
 
 import com.dimafeng.testcontainers.{DockerComposeContainer, SingleContainer}
 import org.testcontainers.containers.{GenericContainer => JavaGenericContainer}

@@ -1,9 +1,8 @@
-package zio.test
+package zio
 
 import com.dimafeng.testcontainers.{DockerComposeContainer, SingleContainer}
 import org.testcontainers.containers.{GenericContainer => JavaGenericContainer}
 import org.testcontainers.lifecycle.Startable
-import zio._
 import zio.blocking.Blocking
 
 package object testcontainers {
