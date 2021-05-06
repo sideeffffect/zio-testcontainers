@@ -11,7 +11,6 @@ ZIO wrapper for [Testcontainers](https://github.com/testcontainers/testcontainer
 "com.github.sideeffffect" % "zio-testcontainers" % "<version>"
 ```
 
-
 [Link-GitHubActions]: https://github.com/sideeffffect/zio-testcontainers/actions?query=workflow%3ARelease+branch%3Amaster "GitHub Actions link"
 [Badge-GitHubActions]: https://github.com/sideeffffect/zio-testcontainers/workflows/Release/badge.svg?branch=master "GitHub Actions badge"
 
