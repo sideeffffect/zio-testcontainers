@@ -11,6 +11,7 @@ lazy val zioTestcontainers = project
       Dependencies.testcontainers
     )
   )
+  .enablePlugins(BuildInfoPlugin)
 
 lazy val commonSettings: List[Def.Setting[_]] = DecentScala.decentScalaSettings ++ List(
   organization := "com.github.sideeffffect",
@@ -23,11 +24,6 @@ lazy val commonSettings: List[Def.Setting[_]] = DecentScala.decentScalaSettings 
       "ondra.pelech@gmail.com",
       url("https://github.com/sideeffffect")
     )
-  ),
-  crossScalaVersions := List(
-    DecentScala.decentScalaVersion213,
-    DecentScala.decentScalaVersion212,
-    DecentScala.decentScalaVersion211
   ),
   testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
   missinglinkExcludedDependencies ++= List(

@@ -1,9 +1,8 @@
-package zio.test
+package zio
 
 import com.dimafeng.testcontainers.{DockerComposeContainer, SingleContainer}
 import org.testcontainers.containers.{GenericContainer => JavaGenericContainer}
 import org.testcontainers.lifecycle.Startable
-import zio._
 import zio.blocking.Blocking
 
 package object testcontainers {
@@ -11,10 +10,8 @@ package object testcontainers {
   implicit final class DockerComposeContainerOps(private val container: DockerComposeContainer)
       extends AnyVal {
 
-    def getHostAndPort(serviceName: String, servicePort: Int): Task[(String, Int)] = for {
-      host <- ZIO.effect(container.getServiceHost(serviceName, servicePort))
-      port <- ZIO.effect(container.getServicePort(serviceName, servicePort))
-    } yield (host, port)
+    def getHostAndPort(serviceName: String)(servicePort: Int): Task[(String, Int)] =
+      ZIOTestcontainers.getHostAndPort(container)(serviceName)(servicePort)
 
   }
 
@@ -22,10 +19,8 @@ package object testcontainers {
       private val container: SingleContainer[T]
   ) extends AnyVal {
 
-    def getHostAndPort(port: Int): Task[(String, Int)] = for {
-      host <- ZIO.effect(container.host)
-      port <- ZIO.effect(container.mappedPort(port))
-    } yield (host, port)
+    def getHostAndPort(port: Int): Task[(String, Int)] =
+      ZIOTestcontainers.getHostAndPort(container)(port)
 
   }
 
