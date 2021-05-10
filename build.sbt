@@ -15,7 +15,7 @@ lazy val zioTestcontainers = project
 
 lazy val commonSettings: List[Def.Setting[_]] = DecentScala.decentScalaSettings ++ List(
   organization := "com.github.sideeffffect",
-  homepage := Some(url("https://github.com/sideeffffect/ideal-voting-backend")),
+  homepage := Some(url("https://github.com/sideeffffect/zio-testcontainers")),
   licenses := List("APLv2" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
   developers := List(
     Developer(
