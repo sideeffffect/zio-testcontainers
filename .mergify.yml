@@ -16,7 +16,6 @@ pull_request_rules:
         add: ["type: breaking"]
   - name: merge Scala Steward's PRs
     conditions:
-      - base=master
       - author=scala-steward
       - status-success=ci
       - "body~=(labels: library-update, semver-minor)|(labels: library-update, semver-patch)|(labels: sbt-plugin-update, semver-minor)|(labels: sbt-plugin-update, semver-patch)|(labels: sbt-plugin-update, semver-build-metadata)|(labels: scalafix-rule-update)|(labels: test-library-update)"
@@ -25,10 +24,7 @@ pull_request_rules:
         method: squash
   - name: automatic merge for master when CI passes
     conditions:
-      - base=master
       - label=mergify-merge
-      - "#review-requested=0"
-      - "#changes-requested-reviews-by=0"
       - status-success=ci
     actions:
       merge:

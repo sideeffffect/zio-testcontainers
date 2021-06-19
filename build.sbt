@@ -29,8 +29,7 @@ lazy val commonSettings: List[Def.Setting[_]] = DecentScala.decentScalaSettings 
   missinglinkExcludedDependencies ++= List(
     moduleFilter(organization = "org.slf4j", name = "slf4j-api"),
     moduleFilter(organization = "org.testcontainers", name = "testcontainers")
-  ),
-  mimaReportBinaryIssues := {}
+  )
 )
 
 addCommandAlias("ci", "; check; +publishLocal")
