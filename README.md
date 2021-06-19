@@ -8,7 +8,7 @@ ZIO wrapper for [Testcontainers](https://github.com/testcontainers/testcontainer
 
 
 ```scala
-"com.github.sideeffffect" % "zio-testcontainers" % "<version>" % Test
+"com.github.sideeffffect" %% "zio-testcontainers" % "<version>" % Test
 ```
 
 [Link-GitHubActions]: https://github.com/sideeffffect/zio-testcontainers/actions?query=workflow%3ARelease+branch%3Amaster "GitHub Actions link"
