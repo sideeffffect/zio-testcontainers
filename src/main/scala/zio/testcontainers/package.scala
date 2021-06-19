@@ -7,8 +7,7 @@ import zio.blocking.Blocking
 
 package object testcontainers {
 
-  implicit final class DockerComposeContainerOps(private val container: DockerComposeContainer)
-      extends AnyVal {
+  implicit final class DockerComposeContainerOps(private val container: DockerComposeContainer) extends AnyVal {
 
     def getHostAndPort(serviceName: String)(servicePort: Int): Task[(String, Int)] =
       ZIOTestcontainers.getHostAndPort(container)(serviceName)(servicePort)
