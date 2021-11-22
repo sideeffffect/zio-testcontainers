@@ -1,3 +1,5 @@
+import com.typesafe.tools.mima.core._
+
 Global / onChangedBuildSource := ReloadOnSourceChanges
 ThisBuild / turbo := true
 
@@ -29,6 +31,9 @@ lazy val commonSettings: List[Def.Setting[_]] = DecentScala.decentScalaSettings 
   missinglinkExcludedDependencies ++= List(
     moduleFilter(organization = "org.slf4j", name = "slf4j-api"),
     moduleFilter(organization = "org.testcontainers", name = "testcontainers")
+  ),
+  mimaReportBinaryIssues := {},
+  mimaBinaryIssueFilters ++= List(
   )
 )
 
