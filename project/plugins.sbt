@@ -1,2 +1,2 @@
 addSbtPlugin("com.github.sbt" % "sbt-ci-release" % "1.5.10")
-addSbtPlugin("com.github.sideeffffect" % "sbt-decent-scala" % "0.7.0+82-447e21e9")
+addSbtPlugin("com.github.sideeffffect" % "sbt-decent-scala" % "0.7.0+83-69d7e358")
