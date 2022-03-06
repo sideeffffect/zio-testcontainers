@@ -6,10 +6,25 @@
 
 ZIO wrapper for [Testcontainers](https://github.com/testcontainers/testcontainers-scala).
 
-
 ```scala
 "com.github.sideeffffect" %% "zio-testcontainers" % "<version>" % Test
 ```
+
+This library comes with `toLayer` extension method (behind `zio.testcontainers._` import) that will turn any TestContainer into a layer that you can use in your tests.
+```scala
+import zio.testcontainers._
+
+  lazy val dockerCompose: RLayer[Blocking, Has[DockerComposeContainer]] =
+    new DockerComposeContainer(
+      new File("docker-compose.yml"),
+      List(
+        ExposedService("mariadb_1", 3306),
+        ExposedService("mailhog_1", 1025),
+        ExposedService("mailhog_1", 8025),
+      ),
+    ).toLayer
+```
+
 
 [Link-GitHubActions]: https://github.com/sideeffffect/zio-testcontainers/actions?query=workflow%3ARelease+branch%3Amaster "GitHub Actions link"
 [Badge-GitHubActions]: https://github.com/sideeffffect/zio-testcontainers/workflows/Release/badge.svg?branch=master "GitHub Actions badge"
