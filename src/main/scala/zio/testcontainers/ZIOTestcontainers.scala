@@ -3,29 +3,31 @@ package zio.testcontainers
 import com.dimafeng.testcontainers.{DockerComposeContainer, SingleContainer}
 import org.testcontainers.containers.{GenericContainer => JavaGenericContainer}
 import org.testcontainers.lifecycle.Startable
-import zio.blocking.{Blocking, effectBlocking}
-import zio.{Has, RLayer, RManaged, Tag, Task, ZIO, ZManaged}
+import zio.{RIO, RLayer, Scope, Tag, UIO, ZIO, ZLayer}
 
 object ZIOTestcontainers {
 
   def getHostAndPort(
       container: DockerComposeContainer
-  )(serviceName: String)(servicePort: Int): Task[(String, Int)] = for {
-    host <- ZIO.effect(container.getServiceHost(serviceName, servicePort))
-    port <- ZIO.effect(container.getServicePort(serviceName, servicePort))
+  )(serviceName: String)(servicePort: Int): UIO[(String, Int)] = for {
+    host <- ZIO.succeed(container.getServiceHost(serviceName, servicePort))
+    port <- ZIO.succeed(container.getServicePort(serviceName, servicePort))
   } yield (host, port)
 
   def getHostAndPort[T <: JavaGenericContainer[_]](
       container: SingleContainer[T]
-  )(port: Int): Task[(String, Int)] = for {
-    host <- ZIO.effect(container.host)
-    port <- ZIO.effect(container.mappedPort(port))
+  )(port: Int): UIO[(String, Int)] = for {
+    host <- ZIO.succeed(container.host)
+    port <- ZIO.succeed(container.mappedPort(port))
   } yield (host, port)
 
-  def toManaged[T <: Startable](startable: T): RManaged[Blocking, T] =
-    ZManaged.make(effectBlocking(startable.start()).as(startable))(container => effectBlocking(container.stop()).orDie)
+  def toZIO[T <: Startable](startable: T): RIO[Scope, T] = {
+    val acquire = ZIO.succeedBlocking(startable.start()).as(startable)
+    val release = (container: T) => ZIO.succeedBlocking(container.stop())
+    ZIO.acquireRelease(acquire)(release)
+  }
 
-  def toLayer[T <: Startable: Tag](container: T): RLayer[Blocking, Has[T]] =
-    toManaged(container).toLayer
+  def toLayer[T <: Startable: Tag](container: T): RLayer[Scope, T] =
+    ZLayer.fromZIO(toZIO(container))
 
 }
