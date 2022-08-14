@@ -14,15 +14,16 @@ This library comes with `toLayer` extension method (behind `zio.testcontainers._
 ```scala
 import zio.testcontainers._
 
-  lazy val dockerCompose: RLayer[Blocking, Has[DockerComposeContainer]] =
-    new DockerComposeContainer(
-      new File("docker-compose.yml"),
-      List(
-        ExposedService("mariadb_1", 3306),
-        ExposedService("mailhog_1", 1025),
-        ExposedService("mailhog_1", 8025),
-      ),
-    ).toLayer
+lazy val dockerCompose: RLayer[Scope, DockerComposeContainer] = ZLayer.fromTestContainer {
+  new DockerComposeContainer(
+    new File("docker-compose.yml"),
+    List(
+      ExposedService("mariadb_1", 3306),
+      ExposedService("mailhog_1", 1025),
+      ExposedService("mailhog_1", 8025),
+    )
+  )
+}
 ```
 
 
