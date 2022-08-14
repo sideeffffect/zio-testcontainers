@@ -34,8 +34,7 @@ lazy val commonSettings: List[Def.Setting[_]] = DecentScala.decentScalaSettings 
     moduleFilter(organization = "org.testcontainers", name = "testcontainers")
   ),
   mimaBinaryIssueFilters ++= List(
-  ),
-  mimaReportBinaryIssues := {}
+  )
 )
 
 addCommandAlias("ci", "; check; +publishLocal")
