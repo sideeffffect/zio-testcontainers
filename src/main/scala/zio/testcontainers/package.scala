@@ -1,7 +1,7 @@
 package zio
 
 import com.dimafeng.testcontainers.{DockerComposeContainer, SingleContainer}
-import org.testcontainers.containers.{GenericContainer => JavaGenericContainer}
+import org.testcontainers.containers.GenericContainer as JavaGenericContainer
 import org.testcontainers.lifecycle.Startable
 
 package object testcontainers {
@@ -24,17 +24,17 @@ package object testcontainers {
 
   implicit final class StartableOps[T <: Startable](private val self: T) extends AnyVal {
 
-    def toZIO: RIO[Scope, T] =
+    def toZIO: URIO[Scope, T] =
       ZIOTestcontainers.toZIO(self)
 
-    def toLayer(implicit ev: Tag[T]): RLayer[Scope, T] =
+    def toLayer(implicit ev: Tag[T]): ULayer[T] =
       ZIOTestcontainers.toLayer(self)
 
   }
 
   implicit final class ZLayerTestContainerOps[T <: Startable](private val self: ZLayer.type) extends AnyVal {
 
-    def fromTestContainer(startable: T)(implicit ev: Tag[T]): RLayer[Scope, T] =
+    def fromTestContainer(startable: T)(implicit ev: Tag[T]): ULayer[T] =
       ZIOTestcontainers.toLayer(startable)
 
   }
