@@ -1,7 +1,7 @@
 package zio.testcontainers
 
 import com.dimafeng.testcontainers.{DockerComposeContainer, SingleContainer}
-import org.testcontainers.containers.GenericContainer as JavaGenericContainer
+import org.testcontainers.containers.{GenericContainer => JavaGenericContainer}
 import org.testcontainers.lifecycle.Startable
 import zio.{Scope, Tag, UIO, ULayer, URIO, ZIO, ZLayer}
 
