@@ -32,9 +32,9 @@ package object testcontainers {
 
   }
 
-  implicit final class ZLayerTestContainerOps[T <: Startable](private val self: ZLayer.type) extends AnyVal {
+  implicit final class ZLayerTestContainerOps(private val self: ZLayer.type) extends AnyVal {
 
-    def fromTestContainer(startable: T)(implicit ev: Tag[T]): ULayer[T] =
+    def fromTestContainer[T <: Startable](startable: T)(implicit ev: Tag[T]): ULayer[T] =
       ZIOTestcontainers.toLayer(startable)
 
   }
