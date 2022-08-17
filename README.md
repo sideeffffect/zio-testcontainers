@@ -14,7 +14,7 @@ This library comes with `toLayer` extension method (behind `zio.testcontainers._
 ```scala
 import zio.testcontainers._
 
-lazy val dockerCompose: RLayer[Scope, DockerComposeContainer] = ZLayer.fromTestContainer {
+lazy val dockerCompose: ULayer[DockerComposeContainer] = ZLayer.fromTestContainer {
   new DockerComposeContainer(
     new File("docker-compose.yml"),
     List(
@@ -23,6 +23,14 @@ lazy val dockerCompose: RLayer[Scope, DockerComposeContainer] = ZLayer.fromTestC
       ExposedService("mailhog_1", 8025),
     )
   )
+}
+...
+lazy val layer = ZLayer.fromZIO {
+  for {
+    docker <- ZIO.service[DockerComposeContainer]
+    (host, port) <- docker.getHostAndPort("mariadb_1")(3306)
+    config = ...
+  } yield config
 }
 ```
 
