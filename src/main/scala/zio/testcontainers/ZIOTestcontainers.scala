@@ -22,6 +22,7 @@ object ZIOTestcontainers {
   } yield (host, port)
 
   def toZIO[T <: Startable](startable: T): URIO[Scope, T] = {
+    // using `succeedBlocking` because there's no point to try to recover if starting/stopping the container fails
     val acquire = ZIO.succeedBlocking(startable.start()).as(startable)
     val release = (container: T) => ZIO.succeedBlocking(container.stop())
     ZIO.acquireRelease(acquire)(release)
