@@ -16,6 +16,8 @@ jobs:
           distribution: 'temurin'
           java-version: 8
           cache: 'sbt'
+      - name: sbt +versionCheck ${{ github.ref }}
+        run: ./sbt +versionCheck
       - name: sbt ci-release ${{ github.ref }}
         run: ./sbt ci-release
         env:
