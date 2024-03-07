@@ -8,6 +8,6 @@ object Dependencies {
   }
 
   val zio = "dev.zio" %% "zio" % Versions.zio
-  val testcontainers = "com.dimafeng" %% "testcontainers-scala" % Versions.testcontainers
+  val testcontainers = "com.dimafeng" %% "testcontainers-scala-core" % Versions.testcontainers
 
 }
