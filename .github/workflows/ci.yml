@@ -23,8 +23,10 @@ jobs:
         run: ./sbt ci
 
   ci:
+    if: always()
     runs-on: ubuntu-22.04
     needs: [ ciJvms ]
     steps:
-      - name: Aggregate of lint, and all tests
-        run: echo "ci passed"
+      - uses: re-actors/alls-green@release/v1
+        with:
+          jobs: ${{ toJSON(needs) }}
