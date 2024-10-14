@@ -18,17 +18,18 @@ lazy val dockerCompose: ULayer[DockerComposeContainer] = ZLayer.fromTestContaine
   new DockerComposeContainer(
     new File("docker-compose.yml"),
     List(
-      ExposedService("mariadb_1", 3306),
-      ExposedService("mailhog_1", 1025),
-      ExposedService("mailhog_1", 8025),
-    )
+      ExposedService("mariadb", 3306),
+      ExposedService("mailhog", 1025),
+      ExposedService("mailhog", 8025),
+    ),
+    localCompose = false,
   )
 }
 ...
 lazy val layer = ZLayer.fromZIO {
   for {
     docker <- ZIO.service[DockerComposeContainer]
-    (host, port) <- docker.getHostAndPort("mariadb_1")(3306)
+    (host, port) <- docker.getHostAndPort("mariadb")(3306)
     config = ...
   } yield config
 }
