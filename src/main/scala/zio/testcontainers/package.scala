@@ -1,10 +1,17 @@
 package zio
 
 import com.dimafeng.testcontainers.{DockerComposeContainer, SingleContainer}
-import org.testcontainers.containers.{GenericContainer => JavaGenericContainer}
+import org.testcontainers.containers.{ComposeContainer, GenericContainer => JavaGenericContainer}
 import org.testcontainers.lifecycle.Startable
 
 package object testcontainers {
+
+  implicit final class ComposeContainerOps(private val container: ComposeContainer) extends AnyVal {
+
+    def getHostAndPort(serviceName: String)(servicePort: Int): UIO[(String, Int)] =
+      ZIOTestcontainers.getHostAndPort(container)(serviceName)(servicePort)
+
+  }
 
   implicit final class DockerComposeContainerOps(private val container: DockerComposeContainer) extends AnyVal {
 
