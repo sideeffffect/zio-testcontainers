@@ -8,21 +8,21 @@ import zio.{Scope, Tag, UIO, ULayer, URIO, ZIO, ZLayer}
 object ZIOTestcontainers {
 
   def getHostAndPort(
-      container: ComposeContainer
+      container: ComposeContainer,
   )(serviceName: String)(servicePort: Int): UIO[(String, Int)] = for {
     host <- ZIO.succeed(container.getServiceHost(serviceName, servicePort))
     port <- ZIO.succeed(container.getServicePort(serviceName, servicePort))
   } yield (host, port)
 
   def getHostAndPort(
-      container: DockerComposeContainer
+      container: DockerComposeContainer,
   )(serviceName: String)(servicePort: Int): UIO[(String, Int)] = for {
     host <- ZIO.succeed(container.getServiceHost(serviceName, servicePort))
     port <- ZIO.succeed(container.getServicePort(serviceName, servicePort))
   } yield (host, port)
 
   def getHostAndPort[T <: JavaGenericContainer[_]](
-      container: SingleContainer[T]
+      container: SingleContainer[T],
   )(port: Int): UIO[(String, Int)] = for {
     host <- ZIO.succeed(container.host)
     port <- ZIO.succeed(container.mappedPort(port))
