@@ -10,8 +10,8 @@ lazy val zioTestcontainers = project
     name := "zio-testcontainers",
     libraryDependencies ++= List(
       Dependencies.zio,
-      Dependencies.testcontainers
-    )
+      Dependencies.testcontainers,
+    ),
   )
   .enablePlugins(BuildInfoPlugin)
 
@@ -24,17 +24,18 @@ lazy val commonSettings: List[Def.Setting[_]] = DecentScala.decentScalaSettings 
       "sideeffffect",
       "Ondra Pelech",
       "ondra.pelech@gmail.com",
-      url("https://github.com/sideeffffect")
-    )
+      url("https://github.com/sideeffffect"),
+    ),
   ),
   testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
   scalacOptions -= "-Xsource:3", // we cross-build for 2.11 too!
   missinglinkExcludedDependencies ++= List(
     moduleFilter(organization = "org.slf4j", name = "slf4j-api"),
-    moduleFilter(organization = "org.testcontainers", name = "testcontainers")
+    moduleFilter(organization = "org.testcontainers", name = "testcontainers"),
   ),
   mimaBinaryIssueFilters ++= List(
-  )
+  ),
+  ThisBuild / versionPolicyIntention := Compatibility.None,
 )
 
 addCommandAlias("ci", "; check; +publishLocal")
