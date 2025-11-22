@@ -1,7 +1,7 @@
 package zio
 
 import com.dimafeng.testcontainers.{DockerComposeContainer, SingleContainer}
-import org.testcontainers.containers.{ComposeContainer, GenericContainer => JavaGenericContainer}
+import org.testcontainers.containers.{ComposeContainer, ContainerState, GenericContainer => JavaGenericContainer}
 import org.testcontainers.lifecycle.Startable
 
 package object testcontainers {
@@ -10,6 +10,13 @@ package object testcontainers {
 
     def getHostAndPort(serviceName: String)(servicePort: Int): UIO[(String, Int)] =
       ZIOTestcontainers.getHostAndPort(container)(serviceName)(servicePort)
+
+  }
+
+  implicit final class ContainerStateOps(private val self: ContainerState) extends AnyVal {
+
+    def getHostAndPort(port: Int): UIO[(String, Int)] =
+      ZIOTestcontainers.getHostAndPort(self)(port)
 
   }
 

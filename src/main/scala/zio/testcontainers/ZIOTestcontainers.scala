@@ -1,7 +1,7 @@
 package zio.testcontainers
 
 import com.dimafeng.testcontainers.{DockerComposeContainer, SingleContainer}
-import org.testcontainers.containers.{ComposeContainer, GenericContainer => JavaGenericContainer}
+import org.testcontainers.containers.{ComposeContainer, ContainerState, GenericContainer => JavaGenericContainer}
 import org.testcontainers.lifecycle.Startable
 import zio.{Scope, Tag, UIO, ULayer, URIO, ZIO, ZLayer}
 
@@ -12,6 +12,13 @@ object ZIOTestcontainers {
   )(serviceName: String)(servicePort: Int): UIO[(String, Int)] = for {
     host <- ZIO.succeed(container.getServiceHost(serviceName, servicePort))
     port <- ZIO.succeed(container.getServicePort(serviceName, servicePort))
+  } yield (host, port)
+
+  def getHostAndPort(
+      container: ContainerState,
+  )(port: Int): UIO[(String, Int)] = for {
+    host <- ZIO.succeed(container.getHost)
+    port <- ZIO.succeed(container.getMappedPort(port))
   } yield (host, port)
 
   def getHostAndPort(
