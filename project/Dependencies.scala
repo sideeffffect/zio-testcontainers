@@ -4,7 +4,7 @@ object Dependencies {
 
   object Versions {
     val zio = "2.1.22"
-    val testcontainers = "0.41.8"
+    val testcontainers = "0.43.6"
   }
 
   val zio = "dev.zio" %% "zio" % Versions.zio
