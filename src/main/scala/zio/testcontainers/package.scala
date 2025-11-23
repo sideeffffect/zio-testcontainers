@@ -18,7 +18,8 @@ package object testcontainers {
 
   }
 
-  implicit final class JavaDockerComposeContainerOps(private val container: JavaDockerComposeContainer[_]) extends AnyVal {
+  implicit final class JavaDockerComposeContainerOps(private val container: JavaDockerComposeContainer[_])
+      extends AnyVal {
 
     def getHostAndPort(serviceName: String)(servicePort: Int): UIO[(String, Int)] =
       ZIOTestcontainers.getHostAndPort(container)(serviceName)(servicePort)
