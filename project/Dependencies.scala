@@ -4,10 +4,10 @@ object Dependencies {
 
   object Versions {
     val zio = "2.1.22"
-    val testcontainers = "0.43.6"
+    val testcontainers = "2.0.2"
   }
 
   val zio = "dev.zio" %% "zio" % Versions.zio
-  val testcontainers = "com.dimafeng" %% "testcontainers-scala-core" % Versions.testcontainers
+  val testcontainers = "org.testcontainers" % "testcontainers" % Versions.testcontainers
 
 }

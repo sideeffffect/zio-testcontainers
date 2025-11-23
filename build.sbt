@@ -31,10 +31,11 @@ lazy val commonSettings: List[Def.Setting[_]] = DecentScala.decentScalaSettings 
   scalacOptions -= "-Xsource:3", // we cross-build for 2.11 too!
   missinglinkExcludedDependencies ++= List(
     moduleFilter(organization = "org.slf4j", name = "slf4j-api"),
-    moduleFilter(organization = "org.testcontainers", name = "testcontainers"),
+    moduleFilter(organization = "com.github.docker-java", name = "docker-java-transport-zerodep"),
   ),
   mimaBinaryIssueFilters ++= List(
   ),
+  ThisBuild / versionPolicyIntention := Compatibility.None,
 )
 
 addCommandAlias("ci", "; check; +publishLocal")
