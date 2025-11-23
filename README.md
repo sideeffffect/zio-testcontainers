@@ -4,7 +4,7 @@
 | --- | --- |
 | [![Build Status][Badge-GitHubActions]][Link-GitHubActions] | [![Release Artifacts][Badge-SonatypeReleases]][Link-SonatypeReleases] |
 
-ZIO wrapper for [Testcontainers](https://github.com/testcontainers/testcontainers-scala).
+ZIO wrapper for [Testcontainers](https://github.com/testcontainers/testcontainers-java/).
 
 ```scala
 "com.github.sideeffffect" %% "zio-testcontainers" % "<version>" % Test
@@ -12,23 +12,19 @@ ZIO wrapper for [Testcontainers](https://github.com/testcontainers/testcontainer
 
 This library comes with `toLayer` extension method (behind `zio.testcontainers._` import) that will turn any TestContainer into a layer that you can use in your tests.
 ```scala
+import org.testcontainers.containers.ComposeContainer
 import zio.testcontainers._
 
-lazy val dockerCompose: ULayer[DockerComposeContainer] = ZLayer.fromTestContainer {
-  new DockerComposeContainer(
-    new File("docker-compose.yml"),
-    List(
-      ExposedService("mariadb", 3306),
-      ExposedService("mailhog", 1025),
-      ExposedService("mailhog", 8025),
-    ),
-    localCompose = false,
-  )
+lazy val dockerCompose: ULayer[ComposeContainer] = ZLayer.fromTestContainer {
+  new ComposeContainer(new File("docker-compose.yml"))
+    .withExposedService("mariadb", 3306)
+    .withExposedService("mailhog", 1025)
+    .withExposedService("mailhog", 8025)
 }
 ...
 lazy val layer = ZLayer.fromZIO {
   for {
-    docker <- ZIO.service[DockerComposeContainer]
+    docker <- ZIO.service[ComposeContainer]
     (host, port) <- docker.getHostAndPort("mariadb")(3306)
     config = ...
   } yield config
