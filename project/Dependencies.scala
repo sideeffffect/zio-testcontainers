@@ -3,7 +3,7 @@ import sbt._
 object Dependencies {
 
   object Versions {
-    val zio = "2.1.23"
+    val zio = "2.1.24"
     val testcontainers = "2.0.3"
   }
 
