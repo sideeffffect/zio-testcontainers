@@ -14,7 +14,7 @@ jobs:
       - uses: actions/setup-java@v6.0.1
         with:
           distribution: 'temurin'
-          java-version: 26.0.2+10
+          java-version: 27.0.0+35
           cache: 'sbt'
       - name: sbt +versionCheck ${{ github.ref }}
         run: ./sbt +versionCheck
